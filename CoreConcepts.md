@@ -51,4 +51,18 @@ TensorFlow.js也提供了方便初始化全为0或1的方法，分别是tf.zeros
 
 ## Variables
 
+Variables是tensor初始化的值（#TODO）。不同于Tensor，Variables是可变的。你可以使用assign方法把tensor的值分配到Variables。
+
+    const initialValues = tf.zeros([5]);
+    const biases = tf.variable(initialValues); // initialize biases
+    biases.print(); // output: [0, 0, 0, 0, 0]
+
+    const updatedValues = tf.tensor1d([0, 1, 0, 1, 0]);
+    biases.assign(updatedValues); // update values of biases
+    biases.print(); // output: [0, 1, 0, 1, 0]
+    
+Variables的主要作用是在模型训练的时候，用来存储和更新tensor的值的。
+
+## Operations（Ops）
+
 
