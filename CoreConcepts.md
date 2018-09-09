@@ -65,4 +65,36 @@ Variables的主要作用是在模型训练的时候，用来存储和更新tenso
 
 ## Operations（Ops）
 
+tensor允许你存储数据，Ops允许你更改数据。TensorFlow.js提供了多种多样的适合线性代数和机器学习的Ops，可以直接用tensor实例来调用。因为tensor不可改变，Ops改变不了它们的值，但是Ops返回新的tensor。
+
+一元Ops，square：
+
+    const d = tf.tensor2d([[1.0, 2.0], [3.0, 4.0]]);
+    const d_squared = d.square();
+    d_squared.print();
+    // Output: [[1, 4 ],
+    //          [9, 16]]
+    
+二进制Ops，例如add、sub和mul：
+
+    const e = tf.tensor2d([[1.0, 2.0], [3.0, 4.0]]);
+    const f = tf.tensor2d([[5.0, 6.0], [7.0, 8.0]]);
+
+    const e_plus_f = e.add(f);
+    e_plus_f.print();
+    // Output: [[6 , 8 ],
+    //          [10, 12]]
+    
+甚至可以链式调用：
+
+    const sq_sum = e.add(f).square();
+    sq_sum.print();
+    // Output: [[36 , 64 ],
+    //          [100, 144]]
+
+    // All operations are also exposed as functions in the main namespace,
+    // so you could also do the following:
+    const sq_sum = tf.square(tf.add(e, f));
+    
+## Models and Layers
 
