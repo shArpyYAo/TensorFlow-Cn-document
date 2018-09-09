@@ -47,4 +47,8 @@ TensorFlow.js也提供了方便初始化全为0或1的方法，分别是tf.zeros
     //          [0, 0, 0, 0, 0],
     //          [0, 0, 0, 0, 0]]
     
-在TensorFlow.js里，tensor是不可变的；一旦创建，你不能改变它。只能执行生成的tensor的
+在TensorFlow.js里，tensor是不可变的；一旦创建，你不能改变它。只能执行生成的tensor的operations生成新的tensor。
+
+## Variables
+
+
