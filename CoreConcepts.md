@@ -98,3 +98,49 @@ tensor允许你存储数据，Ops允许你更改数据。TensorFlow.js提供了�
     
 ## Models and Layers
 
+从概念上来说，model是一个把特定输入转换成特定输出的方法
+
+在TensorFlow.js里有两种方法创建models.你可以使用ops代替model的工作，举个例子：
+
+    // Define function
+    function predict(input) {
+      // y = a * x ^ 2 + b * x + c
+      // More on tf.tidy in the next section
+      return tf.tidy(() => {
+        const x = tf.scalar(input);
+
+        const ax2 = a.mul(x.square());
+        const bx = b.mul(x);
+        const y = ax2.add(bx).add(c);
+
+        return y;
+      });
+    }
+
+    // Define constants: y = 2x^2 + 4x + 8
+    const a = tf.scalar(2);
+    const b = tf.scalar(4);
+    const c = tf.scalar(8);
+
+    // Predict output for input of 2
+    const result = predict(2);
+    result.print() // Output: 24
+    
+你也可以使用高级api tf.model 来构造model而不是用layers，这是一种流行于深度学习的抽象（#TODO）。下面是tf.sequential model的构造代码：
+
+    const model = tf.sequential();
+    model.add(
+      tf.layers.simpleRNN({
+        units: 20,
+        recurrentInitializer: 'GlorotNormal',
+        inputShape: [80, 4]
+      })
+    );
+
+    const optimizer = tf.train.sgd(LEARNING_RATE);
+    model.compile({optimizer, loss: 'categoricalCrossentropy'});
+    model.fit({x: data, y: labels});
+    
+在TensorFlow.js有很多不同类型的layers可供选择。例如：tf.layers.simpleRNN, tf.layers.gru, 和 tf.layers.lstm.
+
+## Memory Management: dispose and tf.tidy
